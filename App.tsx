@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -5,6 +6,7 @@ import ResearchGrid from './components/ResearchGrid';
 import InteractiveMap from './components/InteractiveMap';
 import FrontierDynamics from './components/FrontierDynamics';
 import DataViz from './components/DataViz';
+import Methodology from './components/Methodology';
 import Footer from './components/Footer';
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
         <ResearchGrid />
         <FrontierDynamics />
         <DataViz />
+        <Methodology />
       </main>
       <Footer />
       

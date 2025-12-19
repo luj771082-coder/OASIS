@@ -1,49 +1,43 @@
+
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
-import { MOCK_RESEARCH_DATA } from '../constants';
+import { AlertTriangle, ShieldAlert, Map, Users } from 'lucide-react';
+import { STUDY_HIGHLIGHTS } from '../constants';
 
 const ResearchGrid: React.FC = () => {
+  const getIcon = (type: string) => {
+    switch (type) {
+      case 'alert': return <AlertTriangle className="text-red-500" size={24} />;
+      case 'shield': return <ShieldAlert className="text-oasis-600" size={24} />;
+      case 'map': return <Map className="text-blue-500" size={24} />;
+      case 'people': return <Users className="text-orange-500" size={24} />;
+      default: return <Map size={24} />;
+    }
+  };
+
   return (
-    <section id="research" className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-      <div className="mb-16 text-center md:text-left">
-        <h2 className="font-serif text-4xl md:text-5xl text-gray-900 mb-4">Frontier Research</h2>
-        <p className="text-gray-500 max-w-xl text-lg font-light">
-          Curated studies and breakthrough findings in the field of desert ecology and restoration.
+    <section id="highlights" className="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-gray-200">
+      <div className="mb-16 text-center">
+        <h2 className="font-serif text-4xl text-gray-900 mb-4">Core Findings</h2>
+        <p className="text-gray-500 max-w-2xl mx-auto text-lg font-light">
+          Utilizing Random Forest machine learning on 30m resolution Landsat data to map probable GDEs across global drylands.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12">
-        {MOCK_RESEARCH_DATA.map((article) => (
-          <div key={article.id} className="group cursor-pointer">
-            <div className="relative overflow-hidden rounded-2xl mb-6 aspect-[4/3] shadow-md">
-              <img 
-                src={article.imageUrl} 
-                alt={article.title} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-gray-800 uppercase tracking-wider">
-                {article.category}
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {STUDY_HIGHLIGHTS.map((item) => (
+          <div key={item.id} className="bg-white p-8 rounded-2xl shadow-sm border border-sand-100 hover:shadow-md transition-shadow duration-300 flex flex-col items-center text-center">
+            <div className="mb-6 p-4 bg-sand-50 rounded-full">
+              {getIcon(item.iconType)}
             </div>
-            
-            <div className="flex justify-between items-start">
-              <div>
-                <div className="flex items-center gap-3 text-sm text-gray-400 mb-2">
-                  <span>{article.date}</span>
-                  <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                  <span>{article.author}</span>
-                </div>
-                <h3 className="font-serif text-2xl text-gray-900 group-hover:text-oasis-700 transition-colors mb-3 leading-tight">
-                  {article.title}
-                </h3>
-                <p className="text-gray-600 font-light leading-relaxed line-clamp-2">
-                  {article.excerpt}
-                </p>
-              </div>
-              <div className="ml-4 p-2 rounded-full border border-gray-200 group-hover:bg-oasis-50 group-hover:border-oasis-200 transition-all">
-                <ArrowUpRight size={20} className="text-gray-400 group-hover:text-oasis-600" />
-              </div>
+            <div className="font-serif text-5xl font-bold text-gray-900 mb-2">
+              {item.value}
             </div>
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-4">
+              {item.title}
+            </h3>
+            <p className="text-gray-600 font-light leading-relaxed text-sm">
+              {item.description}
+            </p>
           </div>
         ))}
       </div>

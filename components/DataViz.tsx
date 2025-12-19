@@ -1,101 +1,108 @@
+
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { TREND_DATA } from '../constants';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as ReTooltip, ResponsiveContainer, Cell, PieChart, Pie, Legend } from 'recharts';
+import { REGIONAL_RISK_DATA, PROTECTION_STATUS_DATA } from '../constants';
 
 const DataViz: React.FC = () => {
   return (
-    <section id="trends" className="py-24 bg-sand-50 border-t border-sand-100">
+    <section id="trends" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
-          <div>
-            <h2 className="font-serif text-4xl md:text-5xl text-gray-900 mb-4">Ecological Metrics</h2>
-            <p className="text-gray-600 max-w-xl text-lg font-light">
-              Visualizing the correlation between vegetation recovery (NDVI) and desertification reduction over the last 5 years.
-            </p>
-          </div>
-          <div className="text-right hidden lg:block">
-            <div className="text-4xl font-serif text-oasis-600 font-bold">+17%</div>
-            <div className="text-sm text-gray-500 uppercase tracking-wide">Vegetation Index Growth</div>
-          </div>
+        <div className="mb-16">
+           <h2 className="font-serif text-4xl text-gray-900 mb-6">Global Threats & Protection Status</h2>
+           <p className="text-gray-600 text-lg font-light leading-relaxed max-w-3xl">
+              The analysis highlights a dual crisis: the widespread depletion of groundwater in GDE-rich regions and the severe lack of legal protection mechanisms.
+           </p>
         </div>
 
-        <div className="bg-white p-6 md:p-10 rounded-3xl shadow-xl shadow-sand-200/50 border border-sand-100 h-[500px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart
-              data={TREND_DATA}
-              margin={{ top: 20, right: 30, left: 10, bottom: 0 }}
-            >
-              <defs>
-                <linearGradient id="colorVeg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#22c55e" stopOpacity={0.2}/>
-                  <stop offset="95%" stopColor="#22c55e" stopOpacity={0}/>
-                </linearGradient>
-                <linearGradient id="colorDesert" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#d4b679" stopOpacity={0.2}/>
-                  <stop offset="95%" stopColor="#d4b679" stopOpacity={0}/>
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
-              <XAxis 
-                dataKey="year" 
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fill: '#9ca3af', fontSize: 12 }} 
-                dy={10}
-              />
-              
-              {/* Left Axis for Desertification Rate (Percentages usually 0-100) */}
-              <YAxis 
-                yAxisId="left"
-                axisLine={false} 
-                tickLine={false} 
-                tick={{ fill: '#d4b679', fontSize: 12, fontWeight: 500 }}
-                label={{ value: 'Desertification (%)', angle: -90, position: 'insideLeft', fill: '#d4b679', fontSize: 10, dy: 50 }}
-              />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          
+          {/* Chart 1: Regional Risk */}
+          <div className="space-y-6">
+            <div className="flex justify-between items-end">
+              <h3 className="font-serif text-2xl text-gray-800">Groundwater Depletion</h3>
+              <span className="text-xs text-gray-400 uppercase tracking-widest">Regional Risk</span>
+            </div>
+            <div className="h-[350px] w-full bg-sand-50/50 rounded-2xl p-4 border border-sand-100">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  layout="vertical"
+                  data={REGIONAL_RISK_DATA}
+                  margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e5e7eb" />
+                  <XAxis type="number" hide />
+                  <YAxis 
+                    dataKey="region" 
+                    type="category" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#4b5563', fontSize: 13, fontWeight: 500 }}
+                    width={110}
+                  />
+                  <ReTooltip 
+                    cursor={{ fill: '#f3f4f6' }}
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  />
+                  <Bar dataKey="threatenedPercentage" name="% Depleting Areas" radius={[0, 4, 4, 0]} barSize={24}>
+                    {REGIONAL_RISK_DATA.map((entry, index) => (
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={entry.threatenedPercentage > 50 ? '#d4b679' : '#22c55e'} 
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <p className="text-sm text-gray-500 font-light">
+              <strong className="text-gray-900">Europe (90%)</strong> and <strong className="text-gray-900">Asia (75%)</strong> face extreme pressures, where most GDEs are located in basins with declining storage.
+            </p>
+          </div>
 
-              {/* Right Axis for NDVI (Decimals usually 0-1) */}
-              <YAxis 
-                yAxisId="right"
-                orientation="right"
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: '#22c55e', fontSize: 12, fontWeight: 500 }}
-                domain={[0.2, 0.6]} // Adjusted domain to highlight the trend
-                label={{ value: 'Vegetation Index (NDVI)', angle: 90, position: 'insideRight', fill: '#22c55e', fontSize: 10, dy: -60 }}
-              />
+          {/* Chart 2: Protection Gap */}
+          <div className="space-y-6">
+            <div className="flex justify-between items-end">
+              <h3 className="font-serif text-2xl text-gray-800">The Protection Gap</h3>
+              <span className="text-xs text-gray-400 uppercase tracking-widest">Fig. 4 Analysis</span>
+            </div>
+            <div className="h-[350px] w-full bg-sand-50/50 rounded-2xl p-4 border border-sand-100 flex items-center justify-center relative">
+               <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={PROTECTION_STATUS_DATA}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={80}
+                    outerRadius={120}
+                    paddingAngle={2}
+                    dataKey="value"
+                  >
+                    {PROTECTION_STATUS_DATA.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={0} />
+                    ))}
+                  </Pie>
+                  <ReTooltip 
+                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  />
+                  <Legend 
+                    verticalAlign="bottom" 
+                    height={36} 
+                    iconType="circle"
+                    formatter={(value, entry: any) => <span className="text-gray-600 text-sm ml-1">{value}</span>}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+              {/* Center Text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none pb-8">
+                <span className="text-5xl font-bold text-gray-900">79%</span>
+                <span className="text-xs text-red-500 font-medium uppercase tracking-wider mt-1">Unprotected</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 font-light">
+              Only <strong className="text-gray-900">21%</strong> of GDEs fall under some form of protection, with a mere <strong className="text-gray-900">2%</strong> covered by both protected areas and sustainable policy frameworks.
+            </p>
+          </div>
 
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: '#fff', 
-                  borderRadius: '12px', 
-                  border: 'none', 
-                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' 
-                }}
-              />
-              <Legend verticalAlign="top" height={36} iconType="circle"/>
-              
-              <Area 
-                yAxisId="right"
-                type="monotone" 
-                dataKey="vegetationIndex" 
-                name="Vegetation Index (NDVI)"
-                stroke="#22c55e" 
-                strokeWidth={3}
-                fillOpacity={1} 
-                fill="url(#colorVeg)" 
-              />
-              <Area 
-                yAxisId="left"
-                type="monotone" 
-                dataKey="desertificationRate" 
-                name="Desertification Rate (%)"
-                stroke="#d4b679" 
-                strokeWidth={3}
-                fillOpacity={1} 
-                fill="url(#colorDesert)" 
-              />
-            </AreaChart>
-          </ResponsiveContainer>
         </div>
       </div>
     </section>

@@ -1,23 +1,48 @@
-export interface ResearchArticle {
+
+export interface StudyHighlight {
   id: string;
   title: string;
-  excerpt: string;
-  author: string;
-  date: string;
-  imageUrl: string;
-  category: 'Ecological Restoration' | 'Hydrology' | 'Remote Sensing' | 'Policy';
+  value: string;
+  description: string;
+  iconType: 'alert' | 'shield' | 'map' | 'people';
 }
 
-export interface ChartDataPoint {
-  year: string;
-  vegetationIndex: number;
-  groundwaterLevel: number;
-  desertificationRate: number;
+export interface RegionalRiskData {
+  region: string;
+  threatenedPercentage: number;
+}
+
+export interface ProtectionStatusData {
+  name: string;
+  value: number;
+  color: string;
+}
+
+export interface MapLocation {
+  id: string;
+  name: string;
+  coords: { x: number; y: number };
+  type: 'Conflict' | 'Depletion' | 'Policy' | 'Biodiversity';
+  description: string;
+  stat?: string;
+}
+
+export interface SahelCaseStudy {
+  title: string;
+  content: string;
+  points: string[];
+}
+
+export interface MethodologyMetric {
+  id: string;
+  label: string;
+  value: string;
+  detail: string;
 }
 
 export enum Sender {
   User = 'user',
-  Bot = 'bot'
+  Bot = 'bot',
 }
 
 export interface ChatMessage {
@@ -26,33 +51,4 @@ export interface ChatMessage {
   text: string;
   timestamp: Date;
   isError?: boolean;
-}
-
-export interface MapLocation {
-  id: string;
-  name: string;
-  coords: { x: number; y: number }; // Percentage based coordinates on map
-  aridityIndex: number;
-  vegetationCoverage: string;
-  projectCount: number;
-  description: string;
-}
-
-export interface FrontierPaper {
-  id: string;
-  title: string;
-  journal: string;
-  authors: string;
-  date: string;
-  abstractUrl: string; // Mock URL
-  summary: string;
-}
-
-export interface ExpertInterview {
-  id: string;
-  name: string;
-  role: string;
-  topic: string;
-  quote: string;
-  imageUrl: string;
 }

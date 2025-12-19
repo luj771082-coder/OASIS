@@ -1,49 +1,54 @@
+
 import React from 'react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, FileText, ExternalLink } from 'lucide-react';
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://picsum.photos/id/1043/1920/1080?grayscale" 
-          alt="Desert Landscape" 
-          className="w-full h-full object-cover scale-105 animate-slow-zoom"
-        />
-        {/* Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-sand-50/100"></div>
+    <section id="overview" className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-sand-50">
+      {/* Abstract Background - Simulating Satellite Data */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div className="w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-sand-50 via-transparent to-transparent"></div>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl px-4 mt-20">
-        <span className="inline-block py-1 px-3 border border-sand-300 rounded-full text-sand-100 text-xs tracking-[0.2em] uppercase mb-6 animate-fade-in-up">
-          Ecological Preservation
-        </span>
-        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-sand-50 font-bold mb-6 leading-tight animate-fade-in-up delay-100">
-          Reclaiming the <br /> 
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-oasis-300 to-sand-200">
-            Lost Horizon
-          </span>
+      <div className="relative z-10 max-w-5xl px-6 mt-12 text-center">
+        <div className="inline-flex items-center gap-2 py-1 px-4 border border-gray-300 rounded-full bg-white/50 backdrop-blur-sm text-gray-600 text-xs tracking-widest uppercase mb-8 animate-fade-in-up">
+          <FileText size={12} />
+          <span>Nature | Vol 632 | August 2024</span>
+        </div>
+        
+        <h1 className="font-serif text-5xl md:text-7xl text-gray-900 font-bold mb-8 leading-tight animate-fade-in-up delay-100">
+          Groundwater-Dependent <br/>
+          <span className="text-oasis-600">Ecosystems Map</span>
         </h1>
-        <p className="text-lg md:text-xl text-sand-100/90 font-light max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-200">
-          Exploring the delicate balance between arid expansion and oasis restoration. 
-          Scientific breakthroughs reshaping our understanding of desert ecosystems.
+        
+        <p className="text-xl md:text-2xl text-gray-600 font-light max-w-3xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-200">
+          "Exposes global dryland protection needs."
+        </p>
+
+        <p className="text-sm md:text-base text-gray-500 max-w-2xl mx-auto mb-12 animate-fade-in-up delay-200 border-t border-gray-200 pt-8">
+          A visual analysis of the study by <span className="font-semibold text-gray-800">Melissa M. Rohde et al.</span>, revealing that 53% of GDEs exist in regions with declining groundwater trends, while only 21% are protected.
         </p>
         
-        <div className="animate-fade-in-up delay-300">
+        <div className="flex flex-col md:flex-row gap-4 justify-center animate-fade-in-up delay-300">
            <a 
-            href="#research" 
-            className="inline-flex items-center gap-2 bg-oasis-600 hover:bg-oasis-700 text-white px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-oasis-500/30 text-sm font-medium tracking-wide"
+            href="#highlights" 
+            className="inline-flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-full transition-all duration-300 shadow-xl text-sm font-medium tracking-wide"
           >
-            Explore Research
+            Read Analysis
+            <ArrowDown size={16} />
+          </a>
+          <a 
+            href="https://doi.org/10.1038/s41586-024-07702-8" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-900 border border-gray-200 px-8 py-4 rounded-full transition-all duration-300 text-sm font-medium tracking-wide"
+          >
+            Source PDF
+            <ExternalLink size={16} />
           </a>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-gray-400">
-        <ArrowDown size={24} />
       </div>
     </section>
   );

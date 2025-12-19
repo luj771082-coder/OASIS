@@ -1,134 +1,131 @@
-import { ChartDataPoint, ResearchArticle, MapLocation, FrontierPaper, ExpertInterview } from "./types";
 
-export const MOCK_RESEARCH_DATA: ResearchArticle[] = [
+import { RegionalRiskData, StudyHighlight, MapLocation, SahelCaseStudy, MethodologyMetric, ProtectionStatusData } from "./types";
+
+// Extracted from PDF: Fig 2 Text (Page 5)
+export const REGIONAL_RISK_DATA: RegionalRiskData[] = [
+  { region: 'Europe', threatenedPercentage: 90 },
+  { region: 'Asia', threatenedPercentage: 75 },
+  { region: 'North America', threatenedPercentage: 65 },
+  { region: 'South America', threatenedPercentage: 37 },
+  { region: 'Oceania', threatenedPercentage: 29 },
+  { region: 'Africa', threatenedPercentage: 17 },
+];
+
+// Extracted from PDF: Fig 4 (Page 5/105)
+export const PROTECTION_STATUS_DATA: ProtectionStatusData[] = [
+  { name: 'No Protection', value: 79, color: '#ef4444' }, // Red
+  { name: 'Protected Area / Policy', value: 19, color: '#3b82f6' }, // Blue
+  { name: 'Full Protection', value: 2, color: '#8b5cf6' }, // Purple
+];
+
+export const STUDY_HIGHLIGHTS: StudyHighlight[] = [
   {
-    id: '1',
-    title: 'Adaptive Mechanisms of Populus euphratica in Arid Zones',
-    excerpt: 'Investigating the physiological responses of key species to fluctuating groundwater levels in the Tarim Basin.',
-    author: 'Dr. L. Zhang',
-    date: 'Oct 2023',
-    imageUrl: 'https://picsum.photos/id/10/800/600',
-    category: 'Ecological Restoration'
+    id: 'h1',
+    title: 'Global Extent',
+    value: '1/3',
+    description: 'Of global drylands contain Groundwater-Dependent Ecosystems (GDEs), mapped at high-resolution (30m).',
+    iconType: 'map'
   },
   {
-    id: '2',
-    title: 'Remote Sensing Analysis of Dune Migration Patterns',
-    excerpt: 'Using Sentinel-2 satellite imagery to track the encroachment of shifting sands onto oasis agriculture.',
-    author: 'Prof. A. Al-Mansoori',
-    date: 'Sep 2023',
-    imageUrl: 'https://picsum.photos/id/28/800/600',
-    category: 'Remote Sensing'
+    id: 'h2',
+    title: 'Urgent Threat',
+    value: '53%',
+    description: 'Of GDEs exist in regions with declining groundwater trends, signaling a critical need for intervention.',
+    iconType: 'alert'
   },
   {
-    id: '3',
-    title: 'Sustainable Water Allocation Models',
-    excerpt: 'Balancing ecological water demand with agricultural needs in the Heihe River Basin using AI-driven models.',
-    author: 'Research Group Alpha',
-    date: 'Nov 2023',
-    imageUrl: 'https://picsum.photos/id/54/800/600',
-    category: 'Hydrology'
+    id: 'h3',
+    title: 'Protection Gap',
+    value: '21%',
+    description: 'Only a fraction of GDEs exist on protected lands or in jurisdictions with sustainable management policies.',
+    iconType: 'shield'
   },
   {
-    id: '4',
-    title: 'Socio-Economic Impacts of Desertification Control',
-    excerpt: 'A decade-long study on how "Green Wall" initiatives affect local community livelihoods and migration.',
-    author: 'Dr. Sarah Chen',
-    date: 'Aug 2023',
-    imageUrl: 'https://picsum.photos/id/16/800/600',
-    category: 'Policy'
+    id: 'h4',
+    title: 'Human Linkage',
+    value: 'Sahel',
+    description: 'GDEs are crucial for rural livelihoods and pastoralism, often overlapping with conflict zones in unstable regions.',
+    iconType: 'people'
   }
 ];
 
-export const TREND_DATA: ChartDataPoint[] = [
-  { year: '2018', vegetationIndex: 0.32, groundwaterLevel: -12.5, desertificationRate: 45 },
-  { year: '2019', vegetationIndex: 0.34, groundwaterLevel: -12.8, desertificationRate: 42 },
-  { year: '2020', vegetationIndex: 0.38, groundwaterLevel: -13.0, desertificationRate: 38 },
-  { year: '2021', vegetationIndex: 0.41, groundwaterLevel: -12.2, desertificationRate: 35 },
-  { year: '2022', vegetationIndex: 0.45, groundwaterLevel: -11.5, desertificationRate: 30 },
-  { year: '2023', vegetationIndex: 0.49, groundwaterLevel: -11.0, desertificationRate: 28 },
+export const METHODOLOGY_METRICS: MethodologyMetric[] = [
+  {
+    id: 'm1',
+    value: '30m',
+    label: 'High Resolution',
+    detail: 'First global GDE map at 1 arcsecond (~30m) utilizing Landsat 8 imagery (2015-2020).'
+  },
+  {
+    id: 'm2',
+    value: '34,454',
+    label: 'Training Points',
+    detail: 'Extensive ground-truthed dataset used to train the Random Forest machine learning model.'
+  },
+  {
+    id: 'm3',
+    value: '84%',
+    label: 'Model Accuracy',
+    detail: 'Validated against independent datasets with an 87% recall rate for detecting GDEs.'
+  },
+  {
+    id: 'm4',
+    value: '11',
+    label: 'Predictors',
+    detail: 'Key variables including ETaP (Transpiration/Precipitation) and Land Surface Temperature (LST).'
+  }
 ];
 
 export const NAV_LINKS = [
-  { name: 'Research', href: '#research' },
-  { name: 'Global Monitor', href: '#map' },
-  { name: 'Frontier', href: '#frontier' },
-  { name: 'Data Trends', href: '#trends' },
+  { name: 'Overview', href: '#overview' },
+  { name: 'Key Findings', href: '#highlights' },
+  { name: 'Hotspots', href: '#map' },
+  { name: 'Case Study', href: '#impact' },
+  { name: 'Data Analysis', href: '#trends' },
+  { name: 'Methodology', href: '#methodology' },
 ];
 
 export const MAP_LOCATIONS: MapLocation[] = [
   {
     id: 'loc1',
-    name: 'Tarim Basin, China',
-    coords: { x: 72, y: 35 },
-    aridityIndex: 0.05,
-    vegetationCoverage: '12% (Recovering)',
-    projectCount: 4,
-    description: 'Focus on Populus euphratica regeneration and groundwater banking.'
+    name: 'California Central Valley',
+    coords: { x: 15, y: 38 },
+    type: 'Depletion',
+    description: 'Intensive groundwater pumping has disconnected water tables from root zones, fragmenting ecosystems.',
+    stat: 'High Depletion'
   },
   {
     id: 'loc2',
-    name: 'Sahel Region, Africa',
-    coords: { x: 52, y: 45 },
-    aridityIndex: 0.12,
-    vegetationCoverage: '8% (Critical)',
-    projectCount: 7,
-    description: 'The Great Green Wall initiative: combating southern Sahara expansion.'
+    name: 'The Greater Sahel',
+    coords: { x: 50, y: 45 },
+    type: 'Conflict',
+    description: 'Overlap between GDEs and conflict zones. Critical for pastoral livelihoods during dry seasons.',
+    stat: 'Livelihood Critical'
   },
   {
     id: 'loc3',
-    name: 'Mojave Desert, USA',
-    coords: { x: 18, y: 38 },
-    aridityIndex: 0.15,
-    vegetationCoverage: '15% (Stable)',
-    projectCount: 3,
-    description: 'Research into solar farm impacts on cryptobiotic soil crusts.'
+    name: 'Central Asia',
+    coords: { x: 70, y: 35 },
+    type: 'Biodiversity',
+    description: 'Extensive and contiguous GDEs dominated by pastoralism with lower current depletion rates.',
+    stat: 'Pastoral Hub'
   },
   {
     id: 'loc4',
-    name: 'Great Victoria Desert, Australia',
+    name: 'Great Artesian Basin',
     coords: { x: 85, y: 75 },
-    aridityIndex: 0.08,
-    vegetationCoverage: '18% (Stable)',
-    projectCount: 2,
-    description: 'Indigenous land management practices and fire ecology studies.'
+    type: 'Policy',
+    description: 'Home to established frameworks like the National Water Initiative, yet implementation gaps remain.',
+    stat: 'Policy Framework'
   }
 ];
 
-export const FRONTIER_PAPERS: FrontierPaper[] = [
-  {
-    id: 'p1',
-    title: 'Global dryland expansion under a warming climate',
-    journal: 'Nature Climate Change',
-    authors: 'J. Huang, et al.',
-    date: 'Jan 2024',
-    abstractUrl: 'https://www.nature.com/nclimate/',
-    summary: 'New modeling predicts a 10% expansion of arid zones by 2050, highlighting critical tipping points in semi-arid ecosystems.'
-  },
-  {
-    id: 'p2',
-    title: 'Rapid groundwater depletion in global aquifers',
-    journal: 'Science',
-    authors: 'S. Jasechko, et al.',
-    date: 'Feb 2024',
-    abstractUrl: 'https://www.science.org/',
-    summary: 'Satellite gravimetry reveals accelerated aquifer decline in key agricultural oases, necessitating urgent policy reform.'
-  },
-  {
-    id: 'p3',
-    title: 'Restoring soil microbiome diversity in degraded lands',
-    journal: 'PNAS',
-    authors: 'M. Delgado-Baquerizo',
-    date: 'Mar 2024',
-    abstractUrl: 'https://www.pnas.org/',
-    summary: 'Inoculation with native soil biocrusts significantly improves water retention and seedling survival rates in restoration projects.'
-  }
-];
-
-export const EXPERT_INTERVIEW: ExpertInterview = {
-  id: 'e1',
-  name: 'Dr. Elena Mironova',
-  role: 'Senior Hydrologist, UN Desertification Council',
-  topic: 'The Future of Subsurface Water',
-  quote: 'We are moving past the era of surface reclamation. The next frontier is understanding the deep vadose zone and how ancient water reserves interact with modern climate stress. It is not just about planting trees; it is about engineering the soil itself.',
-  imageUrl: 'https://picsum.photos/id/64/400/400'
+export const SAHEL_CASE_STUDY: SahelCaseStudy = {
+  title: "The Fragility of GDEs in the Greater Sahel",
+  content: "In politically unstable regions, GDEs play an essential role in supporting biodiversity and rural livelihoods, providing relief along human migration pathways.",
+  points: [
+    "Conflict Hotspots: High prevalence of GDEs in Liptako–Gourma and Lake Chad Basin.",
+    "Resource Competition: Herders move to GDEs during droughts, exacerbating conflict with sedentary farmers.",
+    "Policy Risk: Single-objective food security policies (e.g., encouraged irrigation) may unintentionally deplete these critical refugia."
+  ]
 };
